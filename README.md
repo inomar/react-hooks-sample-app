@@ -1,5 +1,5 @@
 ## create-react-app on docker
 
 ```
-$ docker-compoe up
+docker-compoe up
 ```
