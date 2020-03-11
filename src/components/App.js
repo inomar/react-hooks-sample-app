@@ -3,14 +3,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import TodoForm from './TodoForm';
 import Tasks from './Tasks';
+import Logs from './Logs';
 
-import taskReducer from '../reducers';
+import reducer from '../reducers';
 import AppContext from '../contexts';
 
 const App = () => {
-  const initialTasks = [];
+  const initialTasks = {
+    tasks: [],
+    logs: [],
+  };
 
-  const [state, dispatch] = useReducer(taskReducer, initialTasks);
+  const [state, dispatch] = useReducer(reducer, initialTasks);
 
   console.log(state)
   return (
@@ -19,6 +23,7 @@ const App = () => {
         <h4>TODO APP</h4>
         <TodoForm />
         <Tasks />
+        <Logs />
       </div>
     </AppContext.Provider>
   );

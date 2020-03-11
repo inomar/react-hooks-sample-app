@@ -1,12 +1,13 @@
 import React, { useState, useContext } from 'react';
 
-import { CREATE_TASK, DELETE_ALL_TASKS } from '../actions';
+import { CREATE_TASK, DELETE_ALL_TASKS, CREATE_LOG, DELETE_ALL_LOGS } from '../actions';
 import AppContext from '../contexts';
 
 
 const TodoForm = () => {
   const { state, dispatch } = useContext(AppContext);
-  const tasks = state;
+  const { tasks, logs } = state;
+
   const [task, setTask] = useState('');
   const [priority, setPriority] = useState('');
 
@@ -26,15 +27,28 @@ const TodoForm = () => {
       type: CREATE_TASK,
       id, task, priority
     })
+    dispatch({
+      type: CREATE_LOG,
+      description: 'タスクを作成しました。',
+      createdAt: new Date().toISOString(),
+    })
     setTask('')
     setPriority('')
   }
 
   const deleteAllTask = (e) => {
     e.preventDefault();
-    const result = window.confirm('本当に削除して良いですか？')
+    const result = window.confirm('本当に削除して良いですか？');
     if (result) dispatch({
       type: DELETE_ALL_TASKS,
+    })
+  }
+
+  const deleteAllLogs = (e) => {
+    e.preventDefault();
+    const result = window.confirm('本当に削除して良いですか？');
+    if (result) dispatch({
+      type: DELETE_ALL_LOGS,
     })
   }
 
@@ -54,6 +68,7 @@ const TodoForm = () => {
       </select>
       <button className="btn btn-primary" onClick={createTask} disabled={creatable}>作成</button>
       <button className="btn btn-danger ml-2" onClick={deleteAllTask} disabled={tasks.length === 0}>すべてのタスクを削除する</button>
+      <button className="btn btn-danger ml-2" onClick={deleteAllLogs} disabled={logs.length === 0}>すべてのログを削除する</button>
     </form>
   )
 }

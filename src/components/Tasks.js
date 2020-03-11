@@ -6,7 +6,8 @@ import AppContext from '../contexts';
 
 const Tasks = () => {
   const { state } = useContext(AppContext);
-  const tasks = state;
+  const { tasks } = state;
+  console.log(state)
   return (
     <table className="table mt-2">
       <thead>

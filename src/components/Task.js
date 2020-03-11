@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 
-import { DELETE_TASK } from '../actions';
+import { DELETE_TASK, CREATE_LOG } from '../actions';
 import AppContext from '../contexts';
 
 
 const Task = ({ item }) => {
   const { state, dispatch } = useContext(AppContext);
-  const tasks = state;
+  const { tasks } = state;
 
   const deleteTask = (e) => {
     e.preventDefault();
@@ -16,6 +16,11 @@ const Task = ({ item }) => {
       dispatch({
         type: DELETE_TASK,
         items,
+      })
+      dispatch({
+        type: CREATE_LOG,
+        description: `タスク[${item.task}]を削除しました。`,
+        createdAt: new Date().toISOString(),
       })
     }
   }
